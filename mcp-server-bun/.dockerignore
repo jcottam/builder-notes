@@ -1,0 +1,36 @@
+# Ignore node_modules (will be installed in container)
+node_modules
+
+# Ignore git files
+.git
+.gitignore
+
+# Ignore development files
+.env
+.env.local
+*.log
+
+# Ignore build artifacts
+dist
+build
+*.tsbuildinfo
+
+# Ignore IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Docker files (no need to copy into image)
+Dockerfile
+.dockerignore
+
+# Ignore README and docs (optional, remove if needed)
+README.md
+docs
+
