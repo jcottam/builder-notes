@@ -1,4 +1,4 @@
-# MCP Server with Bun
+# MCP on Bun and Hono with mcp-handler
 
 A Model Context Protocol (MCP) server built with [Bun](https://bun.sh), [Hono](https://hono.dev), and [mcp-handler](https://github.com/vercel/mcp-handler). Exposes a `createAsciiArt` tool over Streamable HTTP at `/mcp`.
 
