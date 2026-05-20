@@ -8,7 +8,7 @@ This repository serves as a workspace for exploring new technologies, building p
 
 ### [MCP Server with Bun](./mcp-server-bun/)
 
-A Model Context Protocol (MCP) server implementation built with Bun, Hono, and mcp-handler. Features an ASCII art generator accessible via HTTP transport.
+A Model Context Protocol (MCP) server built with Bun, Hono, and mcp-handler. Registers a `createAsciiArt` tool via `registerTool` and serves it over Streamable HTTP at `/mcp`.
 
 **Tech Stack:**
 
@@ -53,4 +53,4 @@ Individual projects may have their own licensing. Please refer to each project's
 
 **Built with curiosity and code** ✨
 
-_Last updated: November 3, 2025_
+_Last updated: March 20, 2026_

@@ -5,66 +5,35 @@ import figlet from "figlet";
 
 const app = new Hono();
 
-// Create MCP handler
 const handler = createMcpHandler(
   (server) => {
-    server.tool(
+    server.registerTool(
       "createAsciiArt",
-      "Create ASCII art from text using figlet",
       {
-        text: z.string().describe("The text to convert to ASCII art"),
+        title: "Create ASCII Art",
+        description: "Create ASCII art from text using figlet",
+        inputSchema: {
+          text: z.string(),
+        },
       },
       async ({ text }) => {
-        return new Promise((resolve) => {
-          figlet.text(
-            text,
-            {
-              font: "Standard",
-            },
-            (err: Error | null, result?: string) => {
-              if (err) {
-                resolve({
-                  content: [
-                    {
-                      type: "text",
-                      text: `Error creating ASCII art: ${err.message}`,
-                    },
-                  ],
-                });
-              } else {
-                resolve({
-                  content: [{ type: "text", text: result || "" }],
-                });
-              }
-            }
-          );
-        });
-      }
+        const art = figlet.textSync(text);
+        return {
+          content: [{ type: "text", text: art }],
+        };
+      },
     );
   },
   {},
-  {
-    basePath: "/",
-    maxDuration: 60,
-    verboseLogs: true,
-  }
+  { basePath: "/", maxDuration: 60 },
 );
 
-// Mount MCP handler on /mcp route (it handles transport internally)
-app.all("/mcp/*", async (c) => {
+app.all("/mcp", async (c) => {
   return await handler(c.req.raw);
 });
 
-// Keep the original welcome route
-app.get("/", (c) => {
-  return c.json({
-    message: "Hono MCP Server - ASCII Art Generator",
-    endpoints: {
-      mcp: "/mcp",
-      description: "MCP server with ASCII art generator using figlet",
-    },
-    tools: ["createAsciiArt"],
-  });
+app.all("/mcp/*", async (c) => {
+  return await handler(c.req.raw);
 });
 
 export default app;
